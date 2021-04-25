@@ -1,29 +1,15 @@
 package user;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-
 public class PasswordUtils {
-	private static final Random RANDOM = new SecureRandom();
-    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String salt = "d386a18174a74d2185c1843e3b31d4cbdb848ec8d68c35d1164e9f245c1af11d";
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
-    
-     public static String getSalt(int length) {
-        StringBuilder returnValue = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
-        }
-
-        return new String(returnValue);
-    }
 
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
@@ -38,7 +24,7 @@ public class PasswordUtils {
         }
     }
 
-    public static String generateSecurePassword(String password, String salt) {
+    public static String generateSecurePassword(String password) {
         String returnValue = null;
 
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -49,16 +35,13 @@ public class PasswordUtils {
     }
     
     public static boolean verifyUserPassword(String providedPassword,
-            String securedPassword, String salt)
+            String securedPassword)
     {
         boolean returnValue = false;
-        
-        // Generate New secure password with the same salt
-        String newSecurePassword = generateSecurePassword(providedPassword, salt);
-        
-        // Check if two passwords are equal
+        String newSecurePassword = generateSecurePassword(providedPassword);
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
         
         return returnValue;
     }
+
 }

@@ -69,16 +69,8 @@ public class RegisterDao  {
         	isValidPassowrdUserInput = validationPassowrdUserInput(password, password_confirm);
         	user.setPassword(password);
     	}
-    	System.out.println(user.getFirst_name());
-    	System.out.println(user.getLast_name());
-    	System.out.println(user.getEmail());
-    	System.out.println(user.getAddress());
-    	System.out.println(user.getNational_id());
-    	System.out.println(user.getPhone());
-    	System.out.println(user.getPassword());
     	try {
-    		String salt = PasswordUtils.getSalt(30);
-    		String SecurePassword = PasswordUtils.generateSecurePassword(user.getPassword(), salt);
+    		String SecurePassword = PasswordUtils.generateSecurePassword(user.getPassword());
     		connection = ConnectionUtils.getSQLConnection();
     		pstmt = connection.prepareStatement(sql);
     		pstmt.setString(1, user.getFirst_name());
