@@ -18,6 +18,5 @@ public class SQLUtil {
 		String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName;
 		Connection connection = DriverManager.getConnection(connectionURL, userName, password);
 		return connection;
-		
 	}
 }
