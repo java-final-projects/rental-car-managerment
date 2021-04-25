@@ -24,7 +24,7 @@ public class RegisterDao  {
     	System.out.println("---------------- Register new account -----------------");
     	System.out.println("========================================================");
     	Scanner input = new Scanner(System.in);
-    	UserBean user = new UserBean();
+    	RegisterBean user = new RegisterBean();
     	
     	System.out.print("First name: ");
     	String first_name = input.next();

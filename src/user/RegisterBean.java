@@ -1,5 +1,5 @@
 package user;
-public class UserBean {
+public class RegisterBean {
 	private String first_name;
 	private String last_name;
 	private String email;
