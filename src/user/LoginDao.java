@@ -1,11 +1,12 @@
 package user;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LoginDao {
-	
+
 	@SuppressWarnings("resource")
-	public void Login() throws ClassNotFoundException, SQLException {
+	public String Login() throws ClassNotFoundException, SQLException {
 		System.out.println("========================================================");
 		System.out.println("---------------- Login user -----------------");
 		System.out.println("========================================================");
@@ -20,20 +21,22 @@ public class LoginDao {
     	String password = input.next();
     	user.setPassword(password);
     	
-    	UserService login = new UserService();
-    	var resultSet = login.findOne(user.getEmail());
+    	UserService userDB = new UserService();
+    	var resultSet = userDB.findOne(user.getEmail());
     	
 		 while(resultSet.next()) {
-            System.out.println(resultSet.getString(4) + "   " + resultSet.getString(8));
             String passwordDB = resultSet.getString(8);
             boolean SecurePassword = PasswordUtils.verifyUserPassword(user.getPassword(), passwordDB);
-			System.out.println(SecurePassword);
 			if(SecurePassword) {
-				System.out.println("Login success");
+				System.out.println("=========================================================");
+				System.out.println("================Login success ============================");
+				return resultSet.getString(4);
 			} else {
 				System.out.println("Invalid email or password");
+				return null;
 			}
 		 }
+		 return null;
 	}
 	
 }

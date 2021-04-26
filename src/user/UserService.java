@@ -19,4 +19,12 @@ public class UserService {
 		ResultSet resultSet= (ResultSet) stmts.executeQuery(query);
 		return resultSet;
 	}
+	
+	public ResultSet getUserRole(String role) throws ClassNotFoundException, SQLException {
+		String query = "SELECT * FROM users WHERE role = '" + role + "'";
+		connection = ConnectionUtils.getSQLConnection();
+		Statement stmts=connection.createStatement();
+		ResultSet resultSet= (ResultSet) stmts.executeQuery(query);
+		return resultSet;
+	}
 }
