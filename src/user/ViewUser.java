@@ -26,6 +26,6 @@ public class ViewUser {
 									+ resultSet.getString(5) + " \t\t " 
 									+ resultSet.getString(6) + " \t " 
 									+ resultSet.getString(9));
-			}
+		}
 	}
 }
